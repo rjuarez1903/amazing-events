@@ -14,42 +14,36 @@
 <body>
     <header>
         <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
-            <div class="container">
-                
-            <a class="navbar-brand" href="#">
-                <img src="./assets/images/Logo Amazing Events.png" alt="Bootstrap"  height="24">
-            </a>
-                  
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                  <li class="nav-item">
-                    <a class="nav-link" href="./index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./upcomingEvents.html">Upcoming Events</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./pastEvents.html">Past Events</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./contact.html">Contact</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Stats</a>
-                  </li>
-                </ul>
-              </div>
+            <div class="container">    
+                <a class="navbar-brand" href="#">
+                    <img src="./assets/images/Logo-Amazing-Events.png" alt="Amazing Events" height="24">
+                </a>  
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item">
+                          <a class="nav-link" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./upcomingEvents.html">Upcoming Events</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./pastEvents.html">Past Events</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="#">Stats</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <div>
-            <div class="container d-flex justify-content-between align-items-center">
-                <i class="fa-solid fa-less-than"></i>
-                <h1 class="text-center p-5 bg-l fw-bold">Stats</h1>
-                <i class="fa-solid fa-greater-than"></i>
-            </div>
+            <h1 class="text-center p-5 bg-l fw-bold">Stats</h1>
         </div>
     </header>
 
@@ -63,26 +57,22 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Events with the highest percentage of attendance</td>
-                        <td>Events with the lowest percentage of attendance</td>
-                        <td>Event with taget capacity</td>
+                        <th>Events with the highest percentage of attendance</th>
+                        <th>Events with the lowest percentage of attendance</th>
+                        <th>Event with taget capacity</th>
                     </tr>
                     <tr>
                         <td>No data</td>
                         <td>No data</td>
                         <td>No data</td>
                     </tr>
-                </tbody>
-                <thead>
                     <tr colspan="3">
                         <th class="fs-3" colspan="3">Upcoming statistics</th>
                     </tr>
-                </thead>
-                <tbody>
                     <tr>
-                        <td>Categories</td>
-                        <td>Revenues</td>
-                        <td>Percentage of attendance</td>
+                        <th>Categories</th>
+                        <th>Revenues</th>
+                        <th>Percentage of attendance</th>
                     </tr>
                     <tr>
                         <td>No data</td>
@@ -99,17 +89,13 @@
                         <td>No data</td>
                         <td>No data</td>
                     </tr>
-                </tbody>
-                <thead>
                     <tr colspan="3">
                         <th class="fs-3" colspan="3">Past Events statistics by category</th>
                     </tr>
-                </thead>
-                <tbody>
                     <tr>
-                        <td>Categories</td>
-                        <td>Revenues</td>
-                        <td>Percentage of attendance</td>
+                        <th>Categories</th>
+                        <th>Revenues</th>
+                        <th>Percentage of attendance</th>
                     </tr>
                     <tr>
                         <td>No data</td>
@@ -131,22 +117,24 @@
         </section>
     </main>
 
-    <footer class="container d-flex justify-content-between align-items-center py-5 mt-auto">
-        <nav>
-            <ul class="d-flex justify-content">
-                <li>
-                    <a href="https://www." class="nav-link"><i class="fa-brands fa-instagram rounded-a"></i></a>
-                </li>
-                <li>
-                    <a href="" class="nav-link"><i class="fa-brands fa-square-facebook rounded-a"></i></a>
-                </li>
-                <li>
-                    <a href="" class="nav-link"><i class="fa-brands fa-whatsapp rounded-a"></i></a>
-                </li>
-            </ul>
-        </nav>
-        <div>
-            <p class="fs-3 fw-light">Cohort</p>
+    <footer class="mt-auto pt-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <nav>
+                <ul class="d-flex justify-content">
+                    <li>
+                        <a href="https://www.instagram.com" target="_blank" class="nav-link"><i class="fa-brands fa-instagram rounded-a"></i></a>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link"><i class="fa-brands fa-square-facebook rounded-a"></i></a>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link"><i class="fa-brands fa-whatsapp rounded-a"></i></a>
+                    </li>
+                </ul>
+            </nav>
+            <div>
+                <p class="fs-5 fw-light">Cohort</p>
+            </div>
         </div>
     </footer>
 
