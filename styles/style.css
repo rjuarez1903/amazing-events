@@ -87,18 +87,48 @@ ul {
     margin-right: 1rem;
 }
 
-/* CONTACT */
+/*  -------
+    CONTACT
+    ------- 
+*/
 
 .contact-form {
     max-width: 768px;
 }
 
-/* STATS */
+/*  -----
+    STATS
+    ----- 
+*/
 
 i {
     font-size: 2rem;
     cursor: pointer;
 }
+
+/*  ----------
+    SCROLL BAR
+    ---------- 
+*/
+
+body::-webkit-scrollbar {
+    width: 0.5rem;               
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #212527;        
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #D90268;    
+    border-radius: 20px;       
+    
+  }
+
+/*  -------------
+    MEDIA QUERIES
+    ------------- 
+*/
 
 @media (min-width: 992px) {
 
