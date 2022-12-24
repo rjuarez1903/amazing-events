@@ -14,6 +14,16 @@ footer {
     background-color: #2C3031;
 }
 
+.border-gradient {
+    border-bottom: 10px solid;
+    border-image-slice: 1;
+    border-width: 5px;
+}
+
+.border-gradient-purple {
+    border-image-source: linear-gradient(to left, #D90268, #743ad5);
+}
+
 .card-detail {
     border: 1px solid #B6EAFF;
 }
@@ -85,7 +95,7 @@ h5,
 }
 
 .cinema {
-    background-color: #DC2F02;
+    background-color: #743ad5;
 }
 
 .btn-custom {
