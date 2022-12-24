@@ -4,7 +4,7 @@ const renderCards = () => {
     fetch('../events.json')
     .then((response) => response.json())
     .then((json) => {
-        json.map(event => {
+        json.events.map(event => {
             let category = (event.category).replace(/\s+/g, '-').toLowerCase()
             let card = document.createElement('div')
             card.classList.add("col-xl-3", "col-lg-4", "col-sm-6")
@@ -27,7 +27,7 @@ const renderCards = () => {
             `
             console.log("Card created")
         })
-    });
+    })
 }
 
 renderCards()
