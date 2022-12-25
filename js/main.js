@@ -76,13 +76,10 @@ const renderCards = () => {
             cardBody.append(titleCategory, cardText, cardFooter)
             titleCategory.append(cardTitle, categoryPill)
             cardFooter.append(price, a)
-
             cardsContainer.append(card)
 
-            console.log("Card created")
-
+            // Push card to the cards array
             cards.push(card)
-            
         })
     })
 }
