@@ -14,6 +14,14 @@ footer {
     background-color: #2C3031;
 }
 
+header > div {
+    background-image: url(../assets/images/nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg);
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    padding: 4rem;    
+}
+
 .border-gradient {
     border-bottom: 10px solid;
     border-image-slice: 1;
