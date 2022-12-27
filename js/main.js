@@ -19,7 +19,7 @@ const renderCards = () => {
             let category = (event.category).replace(/\s+/g, '-').toLowerCase()
 
             // HTML template creation
-            let div           = document.createElement('div')
+            let div            = document.createElement('div')
             let card           = document.createElement('div')
             let img            = document.createElement('img')
             let cardBody       = document.createElement('div')
@@ -47,16 +47,13 @@ const renderCards = () => {
             cardText.textContent     = `${event.description}`
             cardFooter.className     = 'd-flex justify-content-between align-items-center flex-wrap gap-1'
             price.textContent        =  `Price: $${event.price} `
-            a.href                   = './details.html'
+            a.href                   = `./details.html?id=${event._id}`
             a.className              = 'btn btn-custom w-100'
             a.textContent            = 'Show details'
 
             // Set custom attribute to card
-            // card.setAttribute('data-id', event.id)
             card.setAttribute('data-name', event.name)
             card.setAttribute('data-category', event.category)
-
-            // a.addEventListener('click', showDetails(event.id))
 
             // Add element to the DOM
             div.append(card)
