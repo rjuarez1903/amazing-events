@@ -14,6 +14,14 @@ footer {
     background-color: #2C3031;
 }
 
+header > div {
+    background-image: url(../assets/images/nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg);
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    padding: 4rem;    
+}
+
 .border-gradient {
     border-bottom: 10px solid;
     border-image-slice: 1;
@@ -70,6 +78,29 @@ h5,
     color: #7A8587;
 }
 
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.rounded-a {
+    width: 45px;
+    height: 45px;
+    font-size: 2rem;
+    background-color: #B6EAFF;
+    color: #212527;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+/*  ---------------
+    CATEGORY COLORS
+    ---------------
+*/
+
 .food-fair {
     background-color: #D90268;
 }
@@ -104,28 +135,14 @@ h5,
     font-weight: 700;
 }
 
+/* 
+    BUTTONS
+*/
+
 .btn-custom:hover {
     color: #B6EAFF;
     border: 1px solid #B6EAFF;
     background-color: #2C3031;
-}
-
-ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.rounded-a {
-    width: 45px;
-    height: 45px;
-    font-size: 2rem;
-    background-color: #B6EAFF;
-    color: #212527;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-right: 1rem;
 }
 
 /*  -------
