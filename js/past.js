@@ -65,15 +65,16 @@ const renderPastCards = () => {
 
 function searchEvent(e) {
     e.preventDefault()
-    let cards = document.getElementsByClassName('card')
-    for (let card of cards) {
-        if ((card.getAttribute('data-name').toLowerCase()).includes(searchBar.value.toLowerCase())) {
+    let cardsArray     = Array.from(document.getElementsByClassName('card'))
+    let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()))
+    cardsArray.map(card => {
+        if (cardsToDisplay.includes(card)) {
             card.parentElement.style.display = "flex"
-            card.style.display = "flex"
+            card.style.display               = "flex"
         } else {
             card.parentElement.style.display = "none"
         }
-    }
+    })
     searchBar.value = ''
 }
 
@@ -88,9 +89,7 @@ function getCategories() {
             }
         })
     })
-
     return categories
-
 }
 
 renderPastCards()
