@@ -1,6 +1,7 @@
 const cardsContainer = document.getElementById("cards-container")
 const searchBar      = document.querySelector('input[type="search"]')
 const submitSearch   = document.querySelector('button[type="submit"]')
+const categories     = getCategories()
 
 submitSearch.addEventListener('click', searchEvent)
 
@@ -100,6 +101,22 @@ function searchEvent(e) {
         }
     }
     searchBar.value = ''
+}
+
+function getCategories() {
+    let categories = []
+    fetch('../events.json')
+    .then((response) => response.json())
+    .then((data) => {
+        data.events.map(event => {
+            if (!categories.includes(event.category)) {
+                categories.push(event.category)
+            }
+        })
+    })
+
+    return categories
+
 }
 
 renderCards()
