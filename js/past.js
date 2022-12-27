@@ -1,12 +1,15 @@
 const pastCardsContainer = document.getElementById("past-cards-container")
+const searchBar          = document.querySelector('input[type="search"]')
+const submitSearch       = document.querySelector('button[type="submit"]')
+
+submitSearch.addEventListener('click', searchEvent)
 
 const renderPastCards = () => {
-    let pastCards = []
     fetch('../events.json')
     .then((response) => response.json())
-    .then((json) => {
-        let currentDate = new Date(json.fechaActual)
-        json.events.map(event => {
+    .then((data) => {
+        let currentDate = new Date(data.fechaActual)
+        data.events.map(event => {
             let eventDate = new Date(event.date)
             if (eventDate < currentDate) {
                 // Format event.category to use it as a CSS class
@@ -25,9 +28,9 @@ const renderPastCards = () => {
                 let price          = document.createElement('price')
                 let a              = document.createElement('a')
 
-                card.className           = 'col-xl-3 col-lg-4 col-sm-6'
-                div.className            = 'card rounded'
-                div.style.width          = '100%' 
+                div.className            = 'col-xl-3 col-lg-4 col-sm-6'
+                card.className           = 'card rounded'
+                card.style.width         = '100%' 
                 img.src                  = `${event.image}` 
                 img.className            = 'card-img-top'
                 img.alt                  = `${event.name}`
@@ -44,19 +47,33 @@ const renderPastCards = () => {
                 a.className              = 'btn btn-custom w-100'
                 a.textContent            = 'Show details'
 
-                card.append(div)
-                div.append(img, cardBody)
+                // Set custom attribute to card
+                card.setAttribute('data-name', event.name)
+
+                // Add element to the DOM
+                div.append(card)
+                card.append(img, cardBody)
                 cardBody.append(titleCategory, cardText, cardFooter)
                 titleCategory.append(cardTitle, categoryPill)
                 cardFooter.append(price, a)
-                pastCardsContainer.append(card)
-
-                // Push card to the cards array
-                pastCards.push(card)
-
+                pastCardsContainer.append(div)
             }
         })
     })
+}
+
+function searchEvent(e) {
+    e.preventDefault()
+    let cards = document.getElementsByClassName('card')
+    for (let card of cards) {
+        if ((card.getAttribute('data-name').toLowerCase()).includes(searchBar.value.toLowerCase())) {
+            card.parentElement.style.display = "flex"
+            card.style.display = "flex"
+        } else {
+            card.parentElement.style.display = "none"
+        }
+    }
+    searchBar.value = ''
 }
 
 renderPastCards()

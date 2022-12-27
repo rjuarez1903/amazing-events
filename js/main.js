@@ -1,4 +1,8 @@
 const cardsContainer = document.getElementById("cards-container")
+const searchBar      = document.querySelector('input[type="search"]')
+const submitSearch   = document.querySelector('button[type="submit"]')
+
+submitSearch.addEventListener('click', searchEvent)
 
 // const renderCards = () => {
 //     fetch('../events.json')
@@ -25,23 +29,21 @@ const cardsContainer = document.getElementById("cards-container")
 //                 </div>
 //             </div>
 //             `
-//             console.log("Card created")
 //         })
 //     })
 // }
 
 const renderCards = () => {
-    let cards = []
     fetch('../events.json')
     .then((response) => response.json())
-    .then((json) => {
-        json.events.map(event => {
+    .then((data) => {
+        data.events.map(event => {
             // Format event.category to use it as a CSS class
             let category = (event.category).replace(/\s+/g, '-').toLowerCase()
 
             // HTML template creation
-            let card           = document.createElement('div')
-            let div            = document.createElement('div')
+            let div           = document.createElement('div')
+            let card            = document.createElement('div')
             let img            = document.createElement('img')
             let cardBody       = document.createElement('div')
             let titleCategory  = document.createElement('div')
@@ -52,9 +54,10 @@ const renderCards = () => {
             let price          = document.createElement('price')
             let a              = document.createElement('a')
 
-            card.className           = 'col-xl-3 col-lg-4 col-sm-6'
-            div.className            = 'card rounded'
-            div.style.width          = '100%' 
+            div.className           = 'col-xl-3 col-lg-4 col-sm-6'
+            
+            card.className           = 'card rounded'
+            card.style.width         = '100%' 
             img.src                  = `${event.image}` 
             img.className            = 'card-img-top'
             img.alt                  = `${event.name}`
@@ -71,64 +74,32 @@ const renderCards = () => {
             a.className              = 'btn btn-custom w-100'
             a.textContent            = 'Show details'
 
-            card.append(div)
-            div.append(img, cardBody)
+            // Set custom attribute to card
+            card.setAttribute('data-name', event.name)
+
+            // Add element to the DOM
+            div.append(card)
+            card.append(img, cardBody)
             cardBody.append(titleCategory, cardText, cardFooter)
             titleCategory.append(cardTitle, categoryPill)
             cardFooter.append(price, a)
-            cardsContainer.append(card)
-
-            // Push card to the cards array
-            cards.push(card)
+            cardsContainer.append(div)
         })
     })
 }
 
-// const filterCards = (query) => {
-//     fetch('../events.json')
-//     .then((response) => response.json())
-//     .then((json) => {
-//         let filter = json.events.filter(event => event.category == query)
-//         if (json.event.category == query) {}
-//         json.map(event => {
-//             let category = (event.category).replace(/\s+/g, '-').toLowerCase()
-//             let card = document.createElement('div')
-//             card.classList.add("col-xl-3", "col-lg-4", "col-sm-6")
-//             cardsContainer.append(card)
-//             card.innerHTML = `
-//             <div class="card rounded" style="width: 100%;">
-//                 <img src="${event.image}}" class="card-img-top" alt="...">
-//                 <div class="card-body d-flex flex-column justify-content-between">
-//                     <div class="title-category">
-//                         <h5 class="card-title fw-bold text-center">${event.name}</h5>
-//                         <small class="rounded-pill my-1 ${category}">${event.category}</small>
-//                     </div>
-//                     <p class="card-text">${event.description}}</p>
-//                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-1">
-//                         <p>Price: $${event.price} </p>
-//                         <a href="./details.html" class="btn btn-custom w-100">Show details</a>
-//                     </div>
-//                 </div>
-//             </div>
-//             `
-//             console.log("Card created")
-//         })
-//     })
-// }
+function searchEvent(e) {
+    e.preventDefault()
+    let cards = document.getElementsByClassName('card')
+    for (let card of cards) {
+        if ((card.getAttribute('data-name').toLowerCase()).includes(searchBar.value.toLowerCase())) {
+            card.parentElement.style.display = "flex"
+            card.style.display = "flex"
+        } else {
+            card.parentElement.style.display = "none"
+        }
+    }
+    searchBar.value = ''
+}
 
 renderCards()
-console.log(cards)
-
-checkboxes.map(checkbox => {
-    checkbox.addEventListener('click', () => {
-        
-        if (checkbox.checked) {
-            console.log(`${checkbox.value} checked`)
-            let renderCards = cards.filter(card => card.getAttribute('data-category') == checkbox.value) 
-            console.log(renderCards)
-        } else {
-            console.log(`${checkbox.value} unchecked`)
-        }
-        
-    })
-})
