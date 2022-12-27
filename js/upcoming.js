@@ -1,7 +1,12 @@
 const upcomingCardsContainer = document.getElementById("upcoming-cards-container")
 const searchBar              = document.querySelector('input[type="search"]')
 const submitSearch           = document.querySelector('button[type="submit"]')
-const categories             = getCategories()
+const checkboxes             = Array.from(document.querySelectorAll('input[type="checkbox"]'))
+let categoriesChecked        = []
+
+for (let checkbox of checkboxes) {
+    checkbox.addEventListener('change', getCategoriesChecked)
+}
 
 submitSearch.addEventListener('click', searchEvent)
 
@@ -50,6 +55,7 @@ const renderUpcomingCards = () => {
 
                 // Set custom attribute to card
                 card.setAttribute('data-name', event.name)
+                card.setAttribute('data-category', event.category)
 
                 // Add element to the DOM
                 div.append(card)
@@ -90,6 +96,41 @@ function getCategories() {
         })
     })
     return categories
+}
+
+function getCategoriesChecked(e) {
+    const cardsArray        = Array.from(document.getElementsByClassName('card'))
+    const categories        = getCategories()
+    if (!categoriesChecked.includes(e.target.value) && (e.target.checked)) {
+        categoriesChecked.push(e.target.value)
+    } else if (categoriesChecked.includes(e.target.value) && (!e.target.checked)) {
+        categoriesChecked.splice(categoriesChecked.indexOf(e.target.value), 1)
+    }
+    console.log(categoriesChecked)
+    filterByCategory(categoriesChecked)
+}   
+
+function filterByCategory(categories) {
+    console.log(categories)
+    const cardsArray     = Array.from(document.getElementsByClassName('card'))
+    let cardsToDisplay   = [].concat(cardsArray)
+    if (categories.length == 0 || categories.length == cardsToDisplay.length) {
+        for (let card of cardsToDisplay) {
+            card.parentElement.style.display = "flex"
+            card.style.display               = "flex"
+        }
+    } else {
+        cardsToDisplay = cardsArray.filter(card => categories.includes(card.getAttribute('data-category')))
+        cardsArray.map(card => {
+            if (cardsToDisplay.includes(card)) {
+                card.parentElement.style.display = "flex"
+                card.style.display               = "flex"
+            } else {
+                card.parentElement.style.display = "none"
+            }
+        })
+    }
+    console.log(cardsToDisplay)
 }
 
 renderUpcomingCards()

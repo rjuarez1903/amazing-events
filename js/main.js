@@ -1,7 +1,12 @@
-const cardsContainer = document.getElementById("cards-container")
-const searchBar      = document.querySelector('input[type="search"]')
-const submitSearch   = document.querySelector('button[type="submit"]')
-const categories     = getCategories()
+const cardsContainer  = document.getElementById('cards-container')
+const searchBar       = document.querySelector('input[type="search"]')
+const submitSearch    = document.querySelector('button[type="submit"]')
+const checkboxes      = Array.from(document.querySelectorAll('input[type="checkbox"]'))
+let categoriesChecked = []
+
+for (let checkbox of checkboxes) {
+    checkbox.addEventListener('change', getCategoriesChecked)
+}
 
 submitSearch.addEventListener('click', searchEvent)
 
@@ -15,7 +20,7 @@ const renderCards = () => {
 
             // HTML template creation
             let div           = document.createElement('div')
-            let card            = document.createElement('div')
+            let card           = document.createElement('div')
             let img            = document.createElement('img')
             let cardBody       = document.createElement('div')
             let titleCategory  = document.createElement('div')
@@ -47,7 +52,11 @@ const renderCards = () => {
             a.textContent            = 'Show details'
 
             // Set custom attribute to card
+            // card.setAttribute('data-id', event.id)
             card.setAttribute('data-name', event.name)
+            card.setAttribute('data-category', event.category)
+
+            // a.addEventListener('click', showDetails(event.id))
 
             // Add element to the DOM
             div.append(card)
@@ -62,8 +71,8 @@ const renderCards = () => {
 
 function searchEvent(e) {
     e.preventDefault()
-    let cardsArray     = Array.from(document.getElementsByClassName('card'))
-    let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()))
+    const cardsArray     = Array.from(document.getElementsByClassName('card'))
+    const cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()))
     cardsArray.map(card => {
         if (cardsToDisplay.includes(card)) {
             card.parentElement.style.display = "flex"
@@ -87,6 +96,41 @@ function getCategories() {
         })
     })
     return categories
+}
+
+function getCategoriesChecked(e) {
+    const cardsArray        = Array.from(document.getElementsByClassName('card'))
+    const categories        = getCategories()
+    if (!categoriesChecked.includes(e.target.value) && (e.target.checked)) {
+        categoriesChecked.push(e.target.value)
+    } else if (categoriesChecked.includes(e.target.value) && (!e.target.checked)) {
+        categoriesChecked.splice(categoriesChecked.indexOf(e.target.value), 1)
+    }
+    console.log(categoriesChecked)
+    filterByCategory(categoriesChecked)
+}   
+
+function filterByCategory(categories) {
+    console.log(categories)
+    const cardsArray     = Array.from(document.getElementsByClassName('card'))
+    let cardsToDisplay   = [].concat(cardsArray)
+    if (categories.length == 0 || categories.length == cardsToDisplay.length) {
+        for (let card of cardsToDisplay) {
+            card.parentElement.style.display = "flex"
+            card.style.display               = "flex"
+        }
+    } else {
+        cardsToDisplay = cardsArray.filter(card => categories.includes(card.getAttribute('data-category')))
+        cardsArray.map(card => {
+            if (cardsToDisplay.includes(card)) {
+                card.parentElement.style.display = "flex"
+                card.style.display               = "flex"
+            } else {
+                card.parentElement.style.display = "none"
+            }
+        })
+    }
+    console.log(cardsToDisplay)
 }
 
 renderCards()
