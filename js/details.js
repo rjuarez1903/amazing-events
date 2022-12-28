@@ -21,7 +21,7 @@ function showDetails() {
                                                         <p class="mt-2">${event.description}</p>
                                                         <p>Place: ${event.place}</p>
                                                         <p>Capacity: ${event.capacity}</p>
-                                                        <p>Assistance: ${event.assistance}</p>
+                                                        <p>Assistance/Estimate: ${event.assistance || event.estimate}</p>
                                                         <p>Price: $${event.price}</p>
                                                     </div>
                                                 </div>
