@@ -47,7 +47,9 @@ small {
     padding: 0 1rem;
 }
 
-.search-bar {
+/* REVISAR */
+.search-bar,
+.needs-validation {
     margin: 0 auto;
 }
 
@@ -202,7 +204,9 @@ body::-webkit-scrollbar {
         width: fit-content !important;
     }
 
-    .search-bar {
+    /* REVISAR */
+    .search-bar,
+    .needs-validation {
         margin-right: 0;
     }
     

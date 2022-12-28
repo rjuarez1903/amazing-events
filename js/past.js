@@ -71,8 +71,9 @@ const renderPastCards = () => {
 
 function searchEvent(e) {
     e.preventDefault()
+    let categories     = getCategories()
     let cardsArray     = Array.from(document.getElementsByClassName('card'))
-    let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()))
+    let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()) && categories.includes(card.getAttribute('data-category')))
     cardsArray.map(card => {
         if (cardsToDisplay.includes(card)) {
             card.parentElement.style.display = "flex"
