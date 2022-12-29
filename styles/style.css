@@ -1,3 +1,7 @@
+form div p {
+    margin: 0;
+}
+
 body {
     min-height: 100vh;
     display: flex;
@@ -140,6 +144,14 @@ ul {
 /* 
     BUTTONS
 */
+
+.btn-show-cards {
+    text-decoration: underline;
+    color: #B6EAFF;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
 
 .btn-custom:hover {
     color: #B6EAFF;
