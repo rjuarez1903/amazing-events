@@ -1,15 +1,18 @@
-const cardsContainer  = document.getElementById('cards-container')
-const form            = document.querySelector('form')
-const searchBar       = document.querySelector('input[type="search"]')
-const submitSearch    = document.querySelector('button[type="submit"]')
 const checkboxes      = document.querySelectorAll('input[type="checkbox"]')
 const noResults       = document.querySelector('.no-results')
+const results         = document.querySelector('.results')
+const btnShowCards    = document.querySelector('.btn-show-cards')
+const btnClear        = document.querySelector('.btn-clear')
 let displayedCards    = []
-let categoriesChecked = []
+let categoriesChecked = Array.from(checkboxes).filter(checkbox => checkbox.checked == true)
+console.log(categoriesChecked)
 
 checkboxes.forEach(checkbox => checkbox.addEventListener('change', getCategoriesChecked))
+btnShowCards.addEventListener('click', showAllCards)
+btnClear.addEventListener('click', showAllCards)
 
 const renderCards = () => {
+    const cardsContainer  = document.getElementById('cards-container')
     fetch('../events.json')
     .then((response) => response.json())
     .then((data) => {
@@ -30,8 +33,7 @@ const renderCards = () => {
             let price          = document.createElement('price')
             let a              = document.createElement('a')
 
-            div.className           = 'col-xl-3 col-lg-4 col-sm-6'
-            
+            div.className            = 'col-xl-3 col-lg-4 col-sm-6'
             card.className           = 'card rounded'
             card.style.width         = '100%' 
             img.src                  = `${event.image}` 
@@ -64,46 +66,55 @@ const renderCards = () => {
 
             displayedCards.push(card)
         })
-        // Display cards
-        console.log('Displayed cards: ')
-        displayedCards.forEach(card => console.log(card))
     })
 }
 
+// Bootstrap validation handler
 (() => {
-    const forms = document.querySelectorAll('.needs-validation')
+    const searchBar = document.querySelector('input[type="search"]')
+    const forms     = document.querySelectorAll('.needs-validation')
     Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
             if (!form.checkValidity()) {
                 event.preventDefault()
                 event.stopPropagation()
-            } else {
-                event.preventDefault()
-                if (displayedCards.length == 0) {
-                    displayedCards = [].concat()
-                }
-                if (displayedCards == 0) {
-                    cardsArray = Array.from(document.getElementsByClassName('card'))
-                    let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase())) 
-                    console.log('Cards to display: ')
-                    cardsToDisplay.forEach(card => console.log(card))
-                    displayCards(cardsToDisplay)
-                } else if (categoriesChecked.length > 0) {
-                    let cardsToDisplay = displayedCards.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()) && categoriesChecked.includes(card.getAttribute('data-category'))) 
-                    console.log('Cards to display: ')
-                    cardsToDisplay.forEach(card => console.log(card))
-                    displayCards(cardsToDisplay)
-                } else {
-                    let cardsToDisplay = displayedCards.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase())) 
-                    console.log('Cards to display: ')
-                    cardsToDisplay.forEach(card => console.log(card))
-                    displayCards(cardsToDisplay)
-                }
-            }
+                results.textContent = `Showing results for: ${searchBar.value}`
+            } 
             form.classList.add('was-validated')
+            if (form.checkValidity()) {
+                event.preventDefault()
+                searchEvent()
+                form.classList.remove("was-validated");
+                form.reset();
+            }
         }, false) 
     })
   })()
+
+function searchEvent() {
+    const searchBar     = document.querySelector('input[type="search"]')
+    results.textContent = `Showing results for: ${searchBar.value}`
+    results.classList.remove('d-none')
+    results.classList.add('d-block')
+    btnClear.classList.remove('d-none')
+    btnClear.classList.add('d-block')
+    let arrayCategoriesChecked = Array.from(categoriesChecked).map(categoryChecked => categoryChecked.value)
+
+    let cardsArray = Array.from(document.getElementsByClassName('card'))
+    if (displayedCards.length == 0) {
+        let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase())) 
+        console.log('Call 1')
+        displayCards(cardsToDisplay)
+    } else if (categoriesChecked.length > 0) {
+        let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()) && arrayCategoriesChecked.includes(card.getAttribute('data-category'))) 
+        console.log('Call 2')
+        displayCards(cardsToDisplay)
+    } else {
+        let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase())) 
+        console.log('Call 3')
+        displayCards(cardsToDisplay)
+    }
+}
 
 function displayCards(cards) {
     let cardsArray = Array.from(document.getElementsByClassName('card'))
@@ -111,6 +122,8 @@ function displayCards(cards) {
         if (noResults.classList.contains('d-block')) {
             noResults.classList.remove('d-block')
             noResults.classList.add('d-none')
+            checkboxes.forEach(checkbox => checkbox.disabled = false)
+            checkboxes.forEach(checkbox => checkbox.checked = true)
         }
         cardsArray.map(card => {
             card.parentElement.style.display = "none"
@@ -125,14 +138,25 @@ function displayCards(cards) {
         cardsArray.map(card => card.parentElement.style.display = "none")
         noResults.classList.remove('d-none')
         noResults.classList.add('d-block')
+        checkboxes.forEach(checkbox => checkbox.disabled = true)
         displayedCards = []
-        console.log(displayedCards)
     }
 }
 
-async function getCategories() {
+function showAllCards() {
+    results.textContent = 'Showing results for: '
+    results.classList.add('d-none')
+    results.classList.remove('d-block')
+    btnClear.classList.add('d-none')
+    btnClear.classList.remove('d-block')
+    const cardsArray     = Array.from(document.getElementsByClassName('card'))
+    let cardsToDisplay   = [].concat(cardsArray)
+    displayCards(cardsToDisplay)
+}
+
+function getCategories() {
     let categories = []
-    await fetch('../events.json')
+    fetch('../events.json')
     .then((response) => response.json())
     .then((data) => {
         data.events.map(event => {
@@ -147,64 +171,51 @@ async function getCategories() {
 function getCategoriesChecked(e) {
     const cardsArray = Array.from(document.getElementsByClassName('card'))
     const categories = getCategories()
-    if (!categoriesChecked.includes(e.target.value) && (e.target.checked)) {
-        categoriesChecked.push(e.target.value)
-    } else if (categoriesChecked.includes(e.target.value) && (!e.target.checked)) {
-        categoriesChecked.splice(categoriesChecked.indexOf(e.target.value), 1)
+    let arrayCategoriesChecked = Array.from(categoriesChecked).map(categoryChecked => categoryChecked.value)
+    if (!arrayCategoriesChecked.includes(e.target.value) && (e.target.checked)) {
+        arrayCategoriesChecked.push(e.target.value)
+        categoriesChecked.push(e.target)
+        console.log('Se agrega')
+    } else if (arrayCategoriesChecked.includes(e.target.value) && (!e.target.checked)) {
+        console.log('Vuela')
+        arrayCategoriesChecked.splice(arrayCategoriesChecked.indexOf(e.target.value), 1)
+        categoriesChecked.splice(categoriesChecked.indexOf(e.target), 1)
+
     }
+    console.log(arrayCategoriesChecked)
     console.log(categoriesChecked)
-    filterByCategory(categoriesChecked, searchBar)
+    filterByCategory(arrayCategoriesChecked)
 }   
 
-function filterByCategory(categories, searchBar) {
+function filterByCategory(categories) {
     const cardsArray     = Array.from(document.getElementsByClassName('card'))
     let cardsToDisplay   = [].concat(cardsArray)
-    if (searchBar.value != '') {
+    search = getSearchValue()
+    console.log(search)
+    if (search != '') {
         if (categories.length == 0 || categories.length == cardsToDisplay.length) {
-            displayedCards = []
-            for (let card of cardsToDisplay) {
-                card.parentElement.style.display = "flex"
-                card.style.display               = "flex"
-                displayedCards.push(card)
-            }
-            console.log(displayedCards) 
+            console.log('Last')
+            displayCards([])
         } else {
-            cardsToDisplay = displayedCards.filter(card => categories.includes(card.getAttribute('data-category')))
-            console.log(cardsToDisplay)
-            displayedCards.map(card => {
-                if (cardsToDisplay.includes(card)) {
-                    card.parentElement.style.display = "flex"
-                    card.style.display               = "flex"
-                } else {
-                    card.parentElement.style.display = "none"
-                }
-            })
+            cardsToDisplay = cardsArray.filter(card => categories.includes(card.getAttribute('data-category')) && card.getAttribute('data-name').toLowerCase().includes(search.toString().toLowerCase()))
+            displayCards(cardsToDisplay)
         }
     } else {
         if (categories.length == 0 || categories.length == cardsToDisplay.length) {
-            displayedCards = []
-            for (let card of cardsToDisplay) {
-                card.parentElement.style.display = "flex"
-                card.style.display               = "flex"
-                displayedCards.push(card)
-            }
-            console.log(displayedCards) 
+            displayCards([])
         } else {
-            displayedCards = []
             cardsToDisplay = cardsArray.filter(card => categories.includes(card.getAttribute('data-category')))
-            console.log(cardsToDisplay)
-            cardsArray.map(card => {
-                if (cardsToDisplay.includes(card)) {
-                    card.parentElement.style.display = "flex"
-                    card.style.display               = "flex"
-                    displayedCards.push(card)
-                } else {
-                    card.parentElement.style.display = "none"
-                }
-            })
-            console.log(displayedCards)
+            displayCards(cardsToDisplay)
         }
     }
+}
+
+function getSearchValue() {
+    let search = ''
+    if (results.textContent != 'Showing results for: ') {
+        search = results.textContent.split(' ').slice(3)
+    }
+    return search
 }
 
 renderCards()
