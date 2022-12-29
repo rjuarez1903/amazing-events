@@ -135,7 +135,11 @@ ul {
     BUTTONS
 */
 
-
+.btn-custom {
+    background-color: #B6EAFF;
+    color: #212527;
+    font-weight: 700;
+}
 
 .btn-show-cards {
     text-decoration: underline;
