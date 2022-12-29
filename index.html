@@ -97,16 +97,20 @@
                     </div>
                 </form>
                 <form class="d-flex flex-wrap align-items-center justify-content-center needs-validation ms-auto" novalidate>    
-                    <div class="search-bar d-flex my-4 ">
+                    <div class="search-bar d-flex my-4 align-items-center">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required>
                         <div class="invalid-feedback">Please fill out this field.</div>
-                        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button class="btn btn-outline-success me-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button class="btn btn-outline-success d-none btn-clear" type="button">Clear</button>
                     </div>
                 </form>
             </div>
             <div class="cards-container row gy-4 justify-content-center" id="cards-container">
+                <div class="results d-none"></div>
                 <div class="text-center no-results d-none">
-                    <p class="fs-4">No events to display. Please search again.</p>
+                    <p class="fs-4">No events to display. Please search again or 
+                        <span class="btn-show-cards fs-4">click here</span>
+                        to see all events.</p>
                 </div>
             </div>
         </section>
