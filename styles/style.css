@@ -135,18 +135,18 @@ ul {
     BUTTONS
 */
 
-.btn-custom {
-    background-color: #B6EAFF;
-    color: #212527;
-    font-weight: 700;
-}
-
 .btn-show-cards {
     text-decoration: underline;
     color: #B6EAFF;
     padding: 0;
     border: none;
     cursor: pointer;
+}
+
+.btn-custom {
+    background-color: #B6EAFF;
+    color: #212527;
+    font-weight: 700;
 }
 
 .btn-custom:hover {
