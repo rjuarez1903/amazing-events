@@ -1,11 +1,9 @@
 const checkboxes      = document.querySelectorAll('input[type="checkbox"]')
-const noResults       = document.querySelector('.no-results')
 const results         = document.querySelector('.results')
 const btnShowCards    = document.querySelector('.btn-show-cards')
 const btnClear        = document.querySelector('.btn-clear')
 let displayedCards    = []
 let categoriesChecked = Array.from(checkboxes).filter(checkbox => checkbox.checked == true)
-console.log(categoriesChecked)
 
 checkboxes.forEach(checkbox => checkbox.addEventListener('change', getCategoriesChecked))
 btnShowCards.addEventListener('click', showAllCards)
@@ -73,6 +71,7 @@ const renderCards = () => {
 (() => {
     const searchBar = document.querySelector('input[type="search"]')
     const forms     = document.querySelectorAll('.needs-validation')
+    const results   = document.querySelector('.results')
     Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
             if (!form.checkValidity()) {
@@ -92,6 +91,7 @@ const renderCards = () => {
   })()
 
 function searchEvent() {
+    const results       = document.querySelector('.results')
     const searchBar     = document.querySelector('input[type="search"]')
     results.textContent = `Showing results for: ${searchBar.value}`
     results.classList.remove('d-none')
@@ -103,21 +103,19 @@ function searchEvent() {
     let cardsArray = Array.from(document.getElementsByClassName('card'))
     if (displayedCards.length == 0) {
         let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase())) 
-        console.log('Call 1')
         displayCards(cardsToDisplay)
     } else if (categoriesChecked.length > 0) {
         let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase()) && arrayCategoriesChecked.includes(card.getAttribute('data-category'))) 
-        console.log('Call 2')
         displayCards(cardsToDisplay)
     } else {
         let cardsToDisplay = cardsArray.filter(card => card.getAttribute('data-name').toLowerCase().includes(searchBar.value.toLowerCase())) 
-        console.log('Call 3')
         displayCards(cardsToDisplay)
     }
 }
 
 function displayCards(cards) {
-    let cardsArray = Array.from(document.getElementsByClassName('card'))
+    const noResults = document.querySelector('.no-results')
+    let cardsArray  = Array.from(document.getElementsByClassName('card'))
     if (cards.length > 0) {
         if (noResults.classList.contains('d-block')) {
             noResults.classList.remove('d-block')
@@ -133,7 +131,6 @@ function displayCards(cards) {
             } 
         })
         displayedCards = [].concat(cards)
-        console.log(displayedCards)
     } else {
         cardsArray.map(card => card.parentElement.style.display = "none")
         noResults.classList.remove('d-none')
@@ -144,6 +141,8 @@ function displayCards(cards) {
 }
 
 function showAllCards() {
+    const results   = document.querySelector('.results')
+    checkboxes.forEach(checkbox => checkbox.checked = true)
     results.textContent = 'Showing results for: '
     results.classList.add('d-none')
     results.classList.remove('d-block')
@@ -175,15 +174,11 @@ function getCategoriesChecked(e) {
     if (!arrayCategoriesChecked.includes(e.target.value) && (e.target.checked)) {
         arrayCategoriesChecked.push(e.target.value)
         categoriesChecked.push(e.target)
-        console.log('Se agrega')
     } else if (arrayCategoriesChecked.includes(e.target.value) && (!e.target.checked)) {
-        console.log('Vuela')
         arrayCategoriesChecked.splice(arrayCategoriesChecked.indexOf(e.target.value), 1)
         categoriesChecked.splice(categoriesChecked.indexOf(e.target), 1)
 
     }
-    console.log(arrayCategoriesChecked)
-    console.log(categoriesChecked)
     filterByCategory(arrayCategoriesChecked)
 }   
 
@@ -191,10 +186,8 @@ function filterByCategory(categories) {
     const cardsArray     = Array.from(document.getElementsByClassName('card'))
     let cardsToDisplay   = [].concat(cardsArray)
     search = getSearchValue()
-    console.log(search)
     if (search != '') {
         if (categories.length == 0 || categories.length == cardsToDisplay.length) {
-            console.log('Last')
             displayCards([])
         } else {
             cardsToDisplay = cardsArray.filter(card => categories.includes(card.getAttribute('data-category')) && card.getAttribute('data-name').toLowerCase().includes(search.toString().toLowerCase()))
@@ -211,7 +204,8 @@ function filterByCategory(categories) {
 }
 
 function getSearchValue() {
-    let search = ''
+    const results = document.querySelector('.results')
+    let search    = ''
     if (results.textContent != 'Showing results for: ') {
         search = results.textContent.split(' ').slice(3)
     }
