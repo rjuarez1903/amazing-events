@@ -1,4 +1,6 @@
-const cardsContainer = document.getElementById("cards-container")
+const cardsContainer   = document.getElementById("cards-container")
+const inputSearch      = document.querySelector('input[type=search')
+const checkboxCotainer = document.querySelector('checkboxContainer')
 
 const renderCards = () => {
     let cards = []
@@ -55,3 +57,12 @@ const renderCards = () => {
 }
 
 renderCards()
+
+// checkbox template
+
+{/* <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="food-fair">
+    <label class="form-check-label" for="food-fair">
+    Food fair
+    </label>
+</div> */}
