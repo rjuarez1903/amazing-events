@@ -6,7 +6,7 @@ const data              = fetch('../events.json')
                         .then(json => json.events.map(event => event))
 const currentDate       = fetch('../events.json')
                         .then(response => response.json())
-                        .then(json => json["fechaActual"])             
+                        .then(json => json["fechaActual"])                              
 const checkboxesChecked = []
 
 async function getDate() {
@@ -25,6 +25,7 @@ async function filterByDate() {
         }
     })
     renderCards(eventsToDisplay)
+    return eventsToDisplay
 }
 
 async function renderCards(cards) {
@@ -125,7 +126,7 @@ async function filterCategory(e, filterSearch) {
 }
 
 async function searchEvent() {
-    const events = await data
+    const events = await filterByDate()
     return events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
 }
 

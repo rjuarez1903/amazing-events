@@ -25,6 +25,7 @@ async function filterByDate() {
         }
     })
     renderCards(eventsToDisplay)
+    return eventsToDisplay
 }
 
 async function renderCards(cards) {
@@ -125,7 +126,7 @@ async function filterCategory(e, filterSearch) {
 }
 
 async function searchEvent() {
-    const events = await data
+    const events = await filterByDate()
     return events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
 }
 
