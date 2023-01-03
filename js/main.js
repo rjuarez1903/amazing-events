@@ -19,7 +19,7 @@ async function renderCards(cards) {
 
     eventsToDisplay.forEach(event => {
     // Format event.category to use it as a CSS class
-    let category = (event.category).replace(/\s+/g, '-').toLowerCase()
+    let categoryDashed = (event.category).replace(/\s+/g, '-').toLowerCase()
 
     // HTML template creation
     let card           = document.createElement('div')
@@ -44,7 +44,7 @@ async function renderCards(cards) {
     titleCategory.className  = 'title-category'
     cardTitle.className      = `card-title fw-bold text-center`
     cardTitle.textContent    = `${event.name}`
-    categoryPill.className   = `rounded-pill my-1 ${category}`
+    categoryPill.className   = `rounded-pill my-1 ${categoryDashed}`
     categoryPill.textContent = `${event.category}`
     cardText.textContent     = `${event.description}`
     cardFooter.className     = 'd-flex justify-content-between align-items-center flex-wrap gap-1'
@@ -60,7 +60,6 @@ async function renderCards(cards) {
     cardFooter.append(price, a)
     cardsContainer.append(card)
     })
-
 }
 
 async function getCategories() {
@@ -91,7 +90,6 @@ async function addCheckboxesListener() {
 }
 
 async function filterCategory(e, filterSearch) {
-    const events = await data
     if (e.target != inputSearch && e.target.checked) {
         checkboxesChecked.push(e.target.value)
     } else if (e.target != inputSearch && !e.target.checked) {
@@ -102,19 +100,11 @@ async function filterCategory(e, filterSearch) {
     } else if (filterSearch.length > 0 && checkboxesChecked.length == 0) {
         return searchEvent()
     }
-    return (events.filter(event => checkboxesChecked.includes(event.category)))
+    return []
 }
 
 async function searchEvent() {
     const events = await data
-    if (events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase())).length > 0) {
-        renderCards(events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase())))
-    } else {
-        cardsContainer.innerHTML = 
-        `
-        <p class="text-center">No matches. Search again please.</p>
-        `
-    }
     return events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
 }
 
@@ -125,10 +115,7 @@ async function crossFilter(e) {
         renderCards(cards)
     }
     else {
-        cardsContainer.innerHTML = 
-        `
-        <p class="text-center">No matches. Search again please.</p>
-        `
+        cardsContainer.innerHTML = `<h3 class="text-center">No matches. Search again please.</h3>`
     }
 }
 
