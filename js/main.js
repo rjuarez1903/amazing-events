@@ -65,7 +65,6 @@ async function renderCards(cards) {
 
 async function getCategories() {
     const events = await data
-    console.log(events)
     return Array.from(new Set(events.map(event => event.category)))
 }
 
@@ -88,17 +87,22 @@ async function renderCategories() {
 
 async function addCheckboxesListener() {
     const checkboxes = await renderCategories()
-    checkboxes.forEach(checkbox => checkbox.addEventListener('change', filterCategory))
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', crossFilter))
 }
 
-async function filterCategory(e) {
+async function filterCategory(e, filterSearch) {
     const events = await data
-    if (e.target.checked) {
+    if (e.target != inputSearch && e.target.checked) {
         checkboxesChecked.push(e.target.value)
-    } else {
+    } else if (e.target != inputSearch && !e.target.checked) {
         checkboxesChecked.splice(checkboxesChecked.indexOf(e.target.value), 1)
     }
-    renderCards(events.filter(event => checkboxesChecked.includes(event.category)))
+    if (filterSearch.length > 0 && checkboxesChecked.length > 0) {
+        return filterSearch.filter(event => checkboxesChecked.includes(event.category))
+    } else if (filterSearch.length > 0 && checkboxesChecked.length == 0) {
+        return searchEvent()
+    }
+    return (events.filter(event => checkboxesChecked.includes(event.category)))
 }
 
 async function searchEvent() {
@@ -111,14 +115,25 @@ async function searchEvent() {
         <p class="text-center">No matches. Search again please.</p>
         `
     }
+    return events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
 }
 
 async function crossFilter(e) {
-    console.log(e)
+    const filterSearch = await searchEvent()
+    const cards        = await filterCategory(e, filterSearch)
+    if (cards.length > 0) {
+        renderCards(cards)
+    }
+    else {
+        cardsContainer.innerHTML = 
+        `
+        <p class="text-center">No matches. Search again please.</p>
+        `
+    }
 }
 
 renderCards([]) 
 renderCategories()
 addCheckboxesListener()
 
-inputSearch.addEventListener('input', searchEvent)
+inputSearch.addEventListener('input', crossFilter)
