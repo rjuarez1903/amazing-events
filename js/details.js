@@ -1,7 +1,7 @@
 const cardDetailContainer = document.getElementById('card-detail-container')
 
 function showDetails() {
-    let selectedId = Number(location.search.split("?id=").filter(Number)[0])
+    let selectedId = Number(location.search.charAt(location.search.length -1))
     fetch('../events.json')
     .then((response) => response.json())
     .then(data => {
