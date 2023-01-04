@@ -2,7 +2,6 @@ const cardDetailContainer = document.getElementById('card-detail-container')
 
 function showDetails() {
     let selectedId = new URLSearchParams(location.search).get("id")
-    console.log(selectedId)
     fetch('../events.json')
     .then((response) => response.json())
     .then(data => {
