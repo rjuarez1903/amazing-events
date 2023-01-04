@@ -7,7 +7,7 @@ async function getData() {
     })    
     console.log(events)
     const categories = getCategories(events)
-    getStats(events, categories)
+    getStats(events)
 }
 
 function getCategories(events) {
@@ -20,7 +20,7 @@ function getCategories(events) {
     console.log(categories)
 }
 
-function getStats(events, categories) {
+function getStats(events) {
     let stats = []
     let categoryStats = []
     events.map(event => {
