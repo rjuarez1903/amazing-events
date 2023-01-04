@@ -7,7 +7,7 @@ async function getData() {
     })    
     console.log(events)
     const categories = getCategories(events)
-    getStats(events)
+    getStats(events, categories)
 }
 
 function getCategories(events) {
@@ -17,12 +17,11 @@ function getCategories(events) {
             categories.push(event.category)
         }
     })
-    console.log(categories)
+    return categories
 }
 
-function getStats(events) {
+function getStats(events, categories) {
     let stats = []
-    let categoryStats = []
     events.map(event => {
         stats.push({
             eventName: event.name,
@@ -32,6 +31,11 @@ function getStats(events) {
         })
     })
     console.log(stats)
+    getCategoryStats(stats, categories)
+}
+
+function getCategoryStats(stats, categories) {
+    let categoryStats = []
     stats.map(stat => {
         categoryStats.push({
             category: stat.category, 
