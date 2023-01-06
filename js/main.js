@@ -98,7 +98,7 @@ async function filterCategory(e, filterSearch) {
     if (filterSearch.length > 0 && checkboxesChecked.length > 0) {
         return filterSearch.filter(event => checkboxesChecked.includes(event.category))
     } else if (filterSearch.length > 0 && checkboxesChecked.length == 0) {
-        return searchEvent()
+        return filterSearch
     }
     return []
 }
