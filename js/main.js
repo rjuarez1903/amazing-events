@@ -15,15 +15,13 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         checkboxContainer.addEventListener('change', filter)
     })
     .catch(err => console.log(err))
-
-
-setTimeout(() => {
-    loading.classList.add('d-none')
-    sectionContainer.classList.remove('d-none')
-    var tl = gsap.timeline({defaults: {duration: 1 }})
-    tl.from(".cards-container", {y: 50, opacity: 0})
-    .from(".cards-container .col-xl-3", {y: 50, opacity: 0, stagger: .3}, "-=.7")
-}, 1500)
+    .finally(() => {
+        loading.classList.add('d-none')
+        sectionContainer.classList.remove('d-none')
+        var tl = gsap.timeline({defaults: {duration: 1 }})
+        tl.from(".cards-container", {y: 50, opacity: 0})
+        .from(".cards-container .col-xl-3", {y: 50, opacity: 0, stagger: .3}, "-=.7")
+    })
 
 const renderCategories = (events, checkboxContainer) => {
     const categories = Array.from(new Set(events.map(event => event.category)))
@@ -107,3 +105,4 @@ const filter = () => {
     renderCards(filteredBySearch, cardsContainer)
 }
 
+export { renderCategories, createCard, renderCards, filter }

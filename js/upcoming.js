@@ -1,3 +1,5 @@
+const loading           = document.getElementById('loading')
+const sectionContainer  = document.getElementById('section-container')
 const cardsContainer    = document.getElementById("cards-container")
 const inputSearch       = document.querySelector('input[type="search"]')
 const checkboxContainer = document.getElementById('checkbox-container')
@@ -7,7 +9,6 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json())
     .then(json => {
         let currentDate = new Date(json['currentDate'])
-        console.log(currentDate)
         events = json.events.filter(event => new Date(event.date) > currentDate)
         renderCategories(events, checkboxContainer)
         renderCards(events, cardsContainer)
@@ -15,6 +16,13 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         checkboxContainer.addEventListener('change', filter)
     })
     .catch(err => console.log(err))
+    .finally(() => {
+        loading.classList.add('d-none')
+        sectionContainer.classList.remove('d-none')
+        var tl = gsap.timeline({defaults: {duration: 1 }})
+        tl.from(".cards-container", {y: 50, opacity: 0})
+        .from(".cards-container .col-xl-3", {y: 50, opacity: 0, stagger: .3}, "-=.7")
+    })
 
 const renderCategories = (events, checkboxContainer) => {
     const categories = Array.from(new Set(events.map(event => event.category)))
