@@ -10,6 +10,8 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         events = json.events
         renderCategories(events, checkboxContainer)
         renderCards(events, cardsContainer)
+        inputSearch.addEventListener('keyup', filter)
+        checkboxContainer.addEventListener('change', filter)
     })
     .catch(err => console.log(err))
 
@@ -78,9 +80,28 @@ const createCard = (event) => {
 }
 
 const renderCards = (events, container) => {
-    let fragment = document.createDocumentFragment()
-    events.forEach(event => fragment.appendChild(createCard(event)))
-    container.appendChild(fragment)
+    container.innerHTML = ''
+    if (events.length > 0) {
+        let fragment = document.createDocumentFragment()
+        events.forEach(event => fragment.appendChild(createCard(event)))
+        container.appendChild(fragment)
+    } else {
+        container.innerHTML = '<h3 class="text-center">No matches. Search again please.</h3>'
+        
+    }
+  
+}
+
+const searchEvent = () => {
+    console.log('Executed.')
+    // return events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
+}
+
+const filter = () => {
+    let checked            = Array.from(document.querySelectorAll(['input[type="checkbox"]:checked'])).map(checked => checked.value)
+    let filteredByCategory = events.filter(event => checked.includes(event.category) || checked.length === 0)
+    let filteredBySearch   = filteredByCategory.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
+    renderCards(filteredBySearch, cardsContainer)
 }
 
 // async function renderCards(cards) {
