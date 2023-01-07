@@ -7,6 +7,11 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.bg-grey-gradient {
+    background: rgb(33,37,39);
+    background: linear-gradient(170deg, rgba(33,37,39,1) 50%, rgba(28,28,28,1) 50%);
+}
+
 header > div,
 .card, 
 .card-detail,
@@ -206,4 +211,10 @@ body::-webkit-scrollbar {
         margin-right: 0;
     }
     
+}
+
+label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.80rem;
 }

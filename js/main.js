@@ -1,4 +1,5 @@
 const loading           = document.getElementById('loading')
+const main              = document.querySelector('main')
 const sectionContainer  = document.getElementById('section-container')
 const cardsContainer    = document.getElementById("cards-container")
 const inputSearch       = document.querySelector('input[type="search"]')
@@ -18,6 +19,7 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .finally(() => {
         loading.classList.add('d-none')
         sectionContainer.classList.remove('d-none')
+        main.classList.add('bg-grey-gradient')
         var tl = gsap.timeline({defaults: {duration: 1 }})
         tl.from(".cards-container", {y: 50, opacity: 0})
         .from(".cards-container .col-xl-3", {y: 50, opacity: 0, stagger: .3}, "-=.7")
