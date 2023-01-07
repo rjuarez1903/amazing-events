@@ -2,7 +2,7 @@ const cardDetailContainer = document.getElementById('card-detail-container')
 
 function showDetails() {
     let selectedId = new URLSearchParams(location.search).get("id")
-    fetch('../events.json')
+    fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then((response) => response.json())
     .then(data => {
         data.events.map(event => {

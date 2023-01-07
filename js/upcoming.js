@@ -1,10 +1,10 @@
 const cardsContainer    = document.getElementById("cards-container")
 const inputSearch       = document.querySelector('input[type="search"]')
 const checkboxContainer = document.getElementById('checkbox-container')
-const data              = fetch('../events.json')
+const data              = fetch('https://mindhub-xj03.onrender.com/api/amazing')
                         .then(response => response.json())
                         .then(json => json.events.map(event => event))
-const currentDate       = fetch('../events.json')
+const currentDate       = fetch('https://mindhub-xj03.onrender.com/api/amazing')
                         .then(response => response.json())
                         .then(json => json["fechaActual"])                              
 const checkboxesChecked = []
