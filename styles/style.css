@@ -47,7 +47,8 @@ header > div {
 
 small {
     color: whitesmoke;
-    font-weight: 700;
+    font-weight: 400;
+    text-transform: uppercase;
     width: fit-content;
     padding: 0 1rem;
 }
