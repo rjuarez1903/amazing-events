@@ -20,6 +20,9 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
 setTimeout(() => {
     loading.classList.add('d-none')
     sectionContainer.classList.remove('d-none')
+    var tl = gsap.timeline({defaults: {duration: 1 }})
+    tl.from(".cards-container", {y: 50, opacity: 0})
+    .from(".cards-container .col-xl-3", {y: 50, opacity: 0, stagger: .3}, "-=.7")
 }, 1500)
 
 const renderCategories = (events, checkboxContainer) => {
@@ -103,3 +106,4 @@ const filter = () => {
     let filteredBySearch   = filteredByCategory.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
     renderCards(filteredBySearch, cardsContainer)
 }
+
