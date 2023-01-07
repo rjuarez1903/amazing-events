@@ -31,3 +31,6 @@ function showDetails() {
 }
 
 showDetails()
+
+var tl = gsap.timeline({defaults: {duration: 1 }})
+tl.from("#card-detail-container", {y: 50, opacity: 0})
