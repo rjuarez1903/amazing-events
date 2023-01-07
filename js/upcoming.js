@@ -1,45 +1,40 @@
 const cardsContainer    = document.getElementById("cards-container")
 const inputSearch       = document.querySelector('input[type="search"]')
 const checkboxContainer = document.getElementById('checkbox-container')
-const data              = fetch('https://mindhub-xj03.onrender.com/api/amazing')
-                        .then(response => response.json())
-                        .then(json => json.events.map(event => event))
-const currentDate       = fetch('https://mindhub-xj03.onrender.com/api/amazing')
-                        .then(response => response.json())
-                        .then(json => json["fechaActual"])                              
-const checkboxesChecked = []
+let events 
 
-async function getDate() {
-    const date = await currentDate
-    return new Date(date)
-} 
-
-async function filterByDate() {
-    const currentDate = await getDate()
-    const eventsToDisplay = []
-    const events          = await data
-    events.map(event => {
-        const eventDate = new Date(event.date)
-        if (eventDate > currentDate) {
-            eventsToDisplay.push(event)
-        }
+fetch('https://mindhub-xj03.onrender.com/api/amazing')
+    .then(response => response.json())
+    .then(json => {
+        let currentDate = new Date(json['currentDate'])
+        console.log(currentDate)
+        events = json.events.filter(event => new Date(event.date) > currentDate)
+        renderCategories(events, checkboxContainer)
+        renderCards(events, cardsContainer)
+        inputSearch.addEventListener('input', filter)
+        checkboxContainer.addEventListener('change', filter)
     })
-    renderCards(eventsToDisplay)
-    return eventsToDisplay
+    .catch(err => console.log(err))
+
+const renderCategories = (events, checkboxContainer) => {
+    const categories = Array.from(new Set(events.map(event => event.category)))
+    let checkboxContainerHtml = ''
+    categories.forEach(category => {
+        let categoryDashed = category.replace(/\s+/g, '-').toLowerCase()
+        checkboxContainerHtml += 
+        `   
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="${category}" id="${categoryDashed}">
+            <label class="form-check-label" for="${categoryDashed}">
+            ${category}
+            </label>
+        </div> 
+        `
+    })
+    checkboxContainer.innerHTML = checkboxContainerHtml
 }
 
-async function renderCards(cards) {
-    cardsContainer.innerHTML = ''
-    const eventsToDisplay    = []
-    const events             = await data
-
-    if (cards.length == 0) {
-        eventsToDisplay.push(...events)
-    } else {
-        eventsToDisplay.push(...cards)
-    }
-
-    eventsToDisplay.forEach(event => {
+const createCard = (event) => {
     // Format event.category to use it as a CSS class
     let categoryDashed = (event.category).replace(/\s+/g, '-').toLowerCase()
 
@@ -80,69 +75,25 @@ async function renderCards(cards) {
     cardBody.append(titleCategory, cardText, cardFooter)
     titleCategory.append(cardTitle, categoryPill)
     cardFooter.append(price, a)
-    cardsContainer.append(card)
-    })
+
+    return card
+
 }
 
-async function getCategories() {
-    const events = await data
-    return Array.from(new Set(events.map(event => event.category)))
-}
-
-async function renderCategories() {
-    let checkboxContainerHtml = ''
-    const categories = await getCategories()
-    categories.forEach(category => {
-        let categoryDashed = (category).replace(/\s+/g, '-').toLowerCase()
-        checkboxContainerHtml += 
-    `   <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="${category}" id="${categoryDashed}">
-            <label class="form-check-label" for="${categoryDashed}">
-            ${category}
-            </label>
-        </div> 
-    ` })
-    checkboxContainer.innerHTML = checkboxContainerHtml
-    return document.querySelectorAll('input[type="checkbox"]')
-}
-
-async function addCheckboxesListener() {
-    const checkboxes = await renderCategories()
-    checkboxes.forEach(checkbox => checkbox.addEventListener('change', crossFilter))
-}
-
-async function filterCategory(e, filterSearch) {
-    if (e.target != inputSearch && e.target.checked) {
-        checkboxesChecked.push(e.target.value)
-    } else if (e.target != inputSearch && !e.target.checked) {
-        checkboxesChecked.splice(checkboxesChecked.indexOf(e.target.value), 1)
-    }
-    if (filterSearch.length > 0 && checkboxesChecked.length > 0) {
-        return filterSearch.filter(event => checkboxesChecked.includes(event.category))
-    } else if (filterSearch.length > 0 && checkboxesChecked.length == 0) {
-        return filterSearch
-    }
-    return []
-}
-
-async function searchEvent() {
-    const events = await filterByDate()
-    return events.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
-}
-
-async function crossFilter(e) {
-    const filterSearch = await searchEvent()
-    const cards        = await filterCategory(e, filterSearch)
-    if (cards.length > 0) {
-        renderCards(cards)
-    }
-    else {
-        cardsContainer.innerHTML = `<h3 class="text-center">No matches. Search again please.</h3>`
+const renderCards = (events, container) => {
+    container.innerHTML = ''
+    if (events.length > 0) {
+        let fragment = document.createDocumentFragment()
+        events.forEach(event => fragment.appendChild(createCard(event)))
+        container.appendChild(fragment)
+    } else {
+        container.innerHTML = '<h3 class="text-center">No matches. Search again please.</h3>'
     }
 }
 
-filterByDate()
-renderCategories()
-addCheckboxesListener()
-
-inputSearch.addEventListener('input', crossFilter)
+const filter = () => {
+    let checked            = Array.from(document.querySelectorAll(['input[type="checkbox"]:checked'])).map(checked => checked.value)
+    let filteredByCategory = events.filter(event => checked.includes(event.category) || checked.length === 0)
+    let filteredBySearch   = filteredByCategory.filter(event => event.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
+    renderCards(filteredBySearch, cardsContainer)
+}
