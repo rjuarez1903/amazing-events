@@ -1,5 +1,4 @@
 const loading           = document.getElementById('loading')
-const main              = document.querySelector('main')
 const sectionContainer  = document.getElementById('section-container')
 const cardsContainer    = document.getElementById("cards-container")
 const inputSearch       = document.querySelector('input[type="search"]')
