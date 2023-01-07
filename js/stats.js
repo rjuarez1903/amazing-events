@@ -1,6 +1,6 @@
 async function getData() {
     const events = []
-    await fetch('../events.json')
+    await fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then((response) => response.json())
     .then(data => {
         data.events.map(event => events.push(event))
