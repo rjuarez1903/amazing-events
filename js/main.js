@@ -1,3 +1,5 @@
+const loading           = document.getElementById('loading')
+const sectionContainer  = document.getElementById('section-container')
 const cardsContainer    = document.getElementById("cards-container")
 const inputSearch       = document.querySelector('input[type="search"]')
 const checkboxContainer = document.getElementById('checkbox-container')
@@ -13,6 +15,12 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         checkboxContainer.addEventListener('change', filter)
     })
     .catch(err => console.log(err))
+
+
+setTimeout(() => {
+    loading.classList.add('d-none')
+    sectionContainer.classList.remove('d-none')
+}, 1500)
 
 const renderCategories = (events, checkboxContainer) => {
     const categories = Array.from(new Set(events.map(event => event.category)))
