@@ -12,6 +12,7 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
 })
 .catch(err => console.log(err))
 .finally(() => {
+    document.body.classList.add('bg-grey-gradient')
     var tl = gsap.timeline({defaults: {duration: 1 }})
     tl.from("#card-detail-container", {y: 50, opacity: 0})
 })
