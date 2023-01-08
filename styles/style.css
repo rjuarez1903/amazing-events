@@ -136,6 +136,12 @@ ul {
     margin-right: 1rem;
 }
 
+.rounded-a:hover {
+    background-color: #2C3031;
+    color: #B6EAFF;
+    border: 1px solid #B6EAFF;
+}
+
 .card-icon {
     font-size: 1.5rem;
 }
