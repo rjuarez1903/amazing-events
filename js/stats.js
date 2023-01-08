@@ -1,26 +1,15 @@
-async function getData() {
-    const events = []
-    await fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then((response) => response.json())
-    .then(data => {
-        data.events.map(event => events.push(event))
+let events 
+
+fetch('https://mindhub-xj03.onrender.com/api/amazing')
+    .then(response => response.json())
+    .then(json => {
+        events = json.events
+        const categories = Array.from(new Set(events.map(event => event.category)))
+        getStats(events, categories)
     })    
-    console.log(events)
-    const categories = getCategories(events)
-    getStats(events, categories)
-}
+    .catch(err => console.log(err))
 
-function getCategories(events) {
-    const categories = []
-    events.map(event => {
-        if (!categories.includes(event.category)) {
-            categories.push(event.category)
-        }
-    })
-    return categories
-}
-
-function getStats(events, categories) {
+const getStats = (events, categories) => {
     let stats = []
     events.map(event => {
         stats.push({
@@ -34,7 +23,7 @@ function getStats(events, categories) {
     getCategoryStats(stats, categories)
 }
 
-function getCategoryStats(stats, categories) {
+const getCategoryStats = (stats, categories) => {
     let categoryStats = []
     stats.map(stat => {
         categoryStats.push({
@@ -45,5 +34,3 @@ function getCategoryStats(stats, categories) {
     })
     console.log(categoryStats)
 }
-
-getData()
