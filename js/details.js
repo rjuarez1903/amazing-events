@@ -41,12 +41,12 @@ const renderCard = (event) => {
                 </div>
             </div>
             <p class="mt-2">${event.description}</p>
-            <p class="mt-2 fw-bold my-0 fs-3 price-detail text-center">$${event.price}</p>
+            <p class="mt-2 fw-bold my-0 fs-2 price-detail text-center">$${event.price}</p>
         </div>
         <div class="card-detail-footer col-lg-2 col-md-3 p-4 ${categoryDashed}">
             <div class="row h-100 align-items-center">
-                <p class="col-lg-12 text-center">Capacity: <span class="fw-bold fs-5">${event.capacity}<span></p>
-                <p class="col text-center">${event.assistance ? 'Assistance' : 'Estimate'}: <span class="fw-bold fs-5"">${event.assistance || event.estimate}</p>
+                <p class="col-lg-12 text-center"><span class="fw-bold fs-5">${event.capacity}</span><br>Capacity</p>
+                <p class="col text-center"><span class="fw-bold fs-5"">${event.assistance || event.estimate}</span><br>${event.assistance ? 'Assistance' : 'Estimate'}</p>
             </div>            
         </div>
     </div>
