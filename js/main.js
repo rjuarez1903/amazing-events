@@ -52,11 +52,11 @@ const createCard = (event) => {
     let img            = document.createElement('img')
     let cardBody       = document.createElement('div')
     let titleCategory  = document.createElement('div')
-    let cardTitle      = document.createElement('h5')
+    let cardTitle      = document.createElement('h4')
     let categoryPill   = document.createElement('small')
     let cardText       = document.createElement('p')
     let cardFooter     = document.createElement('div')
-    let price          = document.createElement('price')
+    let price          = document.createElement('p')
     let a              = document.createElement('a')
 
     card.className           = 'col-xl-3 col-lg-4 col-sm-6'
@@ -72,8 +72,9 @@ const createCard = (event) => {
     categoryPill.className   = `rounded-pill my-1 ${categoryDashed}`
     categoryPill.textContent = `${event.category}`
     cardText.textContent     = `${event.description}`
-    cardFooter.className     = 'd-flex justify-content-between align-items-center flex-wrap gap-1'
-    price.textContent        =  `Price: $${event.price} `
+    cardFooter.className     = 'd-flex justify-content-between align-items-center flex-wrap gap-3'
+    price.classList          =  'fw-bold my-0 fs-5 price text-center'
+    price.textContent        =  `$${event.price}`
     a.href                   = `./details.html?id=${event._id}`
     a.className              = 'btn btn-custom w-100'
     a.textContent            = 'Show details'

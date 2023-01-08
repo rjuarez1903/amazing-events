@@ -41,7 +41,8 @@ header > div {
     border: 1px solid #B6EAFF;
 }
 
-#card-detail-title {
+#card-detail-title,
+.card-title {
     color: #B6EAFF;
 }
 
@@ -51,6 +52,12 @@ small {
     text-transform: uppercase;
     width: fit-content;
     padding: 0 1rem;
+}
+
+label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.80rem;
 }
 
 .search-bar {
@@ -75,9 +82,9 @@ small {
     object-fit: cover;
 }
 
-h5, 
-.card-detail div h1 {
-    color: #7A8587;
+.price {
+    color: whitesmoke;
+    width: 100%;
 }
 
 ul {
@@ -199,6 +206,10 @@ body::-webkit-scrollbar {
 }
 
 @media (min-width: 1200px) {
+
+    .price {
+        width: fit-content
+    }
     
     .btn {
         width: fit-content !important;
@@ -208,10 +219,4 @@ body::-webkit-scrollbar {
         margin-right: 0;
     }
     
-}
-
-label {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.80rem;
 }

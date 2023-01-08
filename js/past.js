@@ -73,8 +73,9 @@ const createCard = (event) => {
     categoryPill.className   = `rounded-pill my-1 ${categoryDashed}`
     categoryPill.textContent = `${event.category}`
     cardText.textContent     = `${event.description}`
-    cardFooter.className     = 'd-flex justify-content-between align-items-center flex-wrap gap-1'
-    price.textContent        =  `Price: $${event.price} `
+    cardFooter.className     = 'd-flex justify-content-between align-items-center flex-wrap gap-3'
+    price.classList          =  'fw-bold my-0 fs-5 price text-center'
+    price.textContent        =  `$${event.price}`
     a.href                   = `./details.html?id=${event._id}`
     a.className              = 'btn btn-custom w-100'
     a.textContent            = 'Show details'
