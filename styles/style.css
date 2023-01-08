@@ -87,7 +87,7 @@ label {
     padding-right: 0;
     object-fit: cover;
     object-position: center;
-    /* max-height: 20rem; */
+    max-height: 23rem;
 }
 
 .card:hover {
@@ -146,8 +146,9 @@ ul {
     font-size: 1.5rem;
 }
 
-.card-detail-footer {
-    background-color: #D90268;
+.card-detail-footer p {
+    font-size: 0.85rem;
+    text-transform: uppercase;
 }
 
 /*  ---------------
