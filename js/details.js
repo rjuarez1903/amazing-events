@@ -45,8 +45,8 @@ const renderCard = (event) => {
         </div>
         <div class="card-detail-footer col-lg-2 col-md-3 p-4 ${categoryDashed}">
             <div class="row h-100 align-items-center">
-                <p class="col-lg-12 text-center">Capacity: <span class="fw-bold">${event.capacity}<span></p>
-                <p class="col text-center">${event.assistante ? 'Assistance' : 'Estimate'}: <span class="fw-bold">${event.assistance || event.estimate}</p>
+                <p class="col-lg-12 text-center">Capacity: <span class="fw-bold fs-5">${event.capacity}<span></p>
+                <p class="col text-center">${event.assistance ? 'Assistance' : 'Estimate'}: <span class="fw-bold fs-5"">${event.assistance || event.estimate}</p>
             </div>            
         </div>
     </div>
