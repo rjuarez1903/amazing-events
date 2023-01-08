@@ -12,13 +12,6 @@ body {
     background: linear-gradient(170deg, rgba(33,37,39,1) 50%, rgba(28,28,28,1) 50%);
 }
 
-header > div,
-.card, 
-.card-detail,
-footer {
-    background-color: #2C3031;
-}
-
 .card,
 .card-detail {
     background-color: rgba(44, 48, 49, 0.5);
@@ -146,10 +139,16 @@ ul {
     font-size: 1.5rem;
 }
 
+footer {
+    background-color: #2C3031;
+}
+
 .card-detail-footer p {
     font-size: 0.85rem;
     text-transform: uppercase;
 }
+
+
 
 /*  ---------------
     CATEGORY COLORS
@@ -257,7 +256,7 @@ body::-webkit-scrollbar {
     border-bottom-left-radius: 0.375rem;
     }
 
-.card-detail-footer {
+    .card-detail-footer {
     border-top-right-radius: 0.375rem;
     }
 
