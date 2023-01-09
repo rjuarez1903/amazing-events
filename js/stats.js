@@ -1,5 +1,6 @@
 const tableData = document.getElementById('table-data')
 const table     = document.querySelector('.table')
+const tl        = gsap.timeline({defaults: {duration: 1 }})
 
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json())
@@ -23,10 +24,14 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .finally(() => {
         loading.classList.add('d-none')
         table.classList.remove('d-none')
-        var tl = gsap.timeline({defaults: {duration: 1 }})
-        tl.from(".table", {y: 50, opacity: 0})
+        tl.from(".table", {y: 50, opacity: 0}, "-=1")
 
     })
+
+const animateHeader = () => {
+    tl.from('.navbar-brand', {x: -50, opacity: 0})
+    tl.from('.navbar-nav', {x: 50, opacity: 0}, "-=1")
+}
 
 const getGeneralStats = (events) => {
     let stats = []
@@ -135,3 +140,5 @@ const renderStats = (stats) => {
     }
     tableData.innerHTML += tableDataHtml
 }
+
+animateHeader()

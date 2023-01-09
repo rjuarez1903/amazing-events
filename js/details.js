@@ -1,5 +1,6 @@
 const cardDetailContainer = document.getElementById('card-detail-container')
 const selectedId          = new URLSearchParams(location.search).get("id")
+const tl                  = gsap.timeline({defaults: {duration: 1 }})
 
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
 .then((response) => response.json())
@@ -15,9 +16,13 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
     loading.classList.add('d-none')
     cardDetailContainer.classList.remove('d-none')
     document.body.classList.add('bg-grey-gradient')
-    var tl = gsap.timeline({defaults: {duration: 1 }})
-    tl.from("#card-detail-container", {y: 50, opacity: 0})
+    tl.from("#card-detail-container", {y: 50, opacity: 0}, "-= 1")
 })
+
+const animateHeader = () => {
+    tl.from('.navbar-brand', {x: -50, opacity: 0})
+    tl.from('.navbar-nav', {x: 50, opacity: 0}, "-=1")
+}
 
 const renderCard = (event) => {
     let categoryDashed = event.category.replace(/\s+/g, '-').toLowerCase()
@@ -52,3 +57,5 @@ const renderCard = (event) => {
     </div>
     `
 }
+
+animateHeader()

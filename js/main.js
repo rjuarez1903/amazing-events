@@ -3,7 +3,14 @@ const sectionContainer  = document.getElementById('section-container')
 const cardsContainer    = document.getElementById("cards-container")
 const inputSearch       = document.querySelector('input[type="search"]')
 const checkboxContainer = document.getElementById('checkbox-container')
+const tl                = gsap.timeline({defaults: {duration: 1 }})
+
 let events 
+
+const animateHeader = () => {
+    tl.from('.navbar-brand', {x: -50, opacity: 0})
+    tl.from('.navbar-nav', {x: 50, opacity: 0}, "-=1")
+}
 
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json())
@@ -19,8 +26,7 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         loading.classList.add('d-none')
         sectionContainer.classList.remove('d-none')
         document.body.classList.add('bg-grey-gradient')
-        var tl = gsap.timeline({defaults: {duration: 1 }})
-        tl.from(".cards-container", {y: 50, opacity: 0})
+        tl.from(".cards-container, #checkbox-container, .search-bar", {y: 50, opacity: 0}, "-=1")
         .from(".cards-container .col-xl-3", {y: 50, opacity: 0, stagger: .3}, "-=.7")
     })
 
@@ -107,4 +113,4 @@ const filter = () => {
     renderCards(filteredBySearch, cardsContainer)
 }
 
-export { renderCategories, createCard, renderCards, filter }
+animateHeader()
