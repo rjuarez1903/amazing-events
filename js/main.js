@@ -7,7 +7,6 @@ const tl                = gsap.timeline({defaults: {duration: 1 }})
 
 let events 
 
-
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json())
     .then(json => {
