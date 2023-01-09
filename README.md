@@ -1,4 +1,4 @@
-<img width="1512" alt="github-amazing-events" src="https://user-images.githubusercontent.com/99626780/209443470-b9105eac-384b-4fdd-a089-ddd4a8d0737a.png">
+![amazing-events-github](https://user-images.githubusercontent.com/99626780/211332396-0b6afe2d-cf2f-455d-a561-e2d36d758814.png)
 
 MindHub Full Stack Java - JS Module Task 
 
@@ -6,5 +6,7 @@ MindHub Full Stack Java - JS Module Task
 - HTML
 - CSS
 - Bootstrap
+- JavaScript
+- GSAP
 
 © 2022 Made by Rodrigo Juarez
