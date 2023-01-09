@@ -7,11 +7,6 @@ const tl                = gsap.timeline({defaults: {duration: 1 }})
 
 let events 
 
-const animateHeader = () => {
-    tl.from('.navbar-brand', {x: -50, opacity: 0})
-    tl.from('.navbar-nav', {x: 50, opacity: 0}, "-=1")
-}
-
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json())
     .then(json => {
@@ -30,6 +25,11 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         tl.from(".cards-container, #checkbox-container, .search-bar", {y: 50, opacity: 0}, "-=1")
         .from(".cards-container .col-xl-3", {y: 50, opacity: 0, stagger: .3}, "-=.7")
     })
+
+const animateHeader = () => {
+    tl.from('.navbar-brand', {x: -50, opacity: 0})
+    tl.from('.navbar-nav', {x: 50, opacity: 0}, "-=1")
+}
 
 const renderCategories = (events, checkboxContainer) => {
     const categories = Array.from(new Set(events.map(event => event.category)))
